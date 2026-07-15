@@ -455,17 +455,17 @@
           </a>
         </div>
 
-        <form class="contact-form" onsubmit="return false;">
+        <form class="contact-form" id="enquiryForm">
           <div class="form-row">
-            <input type="text" placeholder="Your name" required />
-            <input type="email" placeholder="Email address" required />
+            <input type="text" id="fname" placeholder="Your name" required />
+            <input type="email" id="femail" placeholder="Email address" required />
           </div>
-          <select>
+          <select id="fsession">
             <option value="" disabled selected>Session type</option>
             <option>In-Person (Japan)</option>
             <option>Premium / Travel</option>
           </select>
-          <textarea rows="5" placeholder="Briefly introduce yourself and describe your interests. Be respectful and specific."></textarea>
+          <textarea id="fmessage" rows="5" placeholder="Briefly introduce yourself and describe your interests. Be respectful and specific."></textarea>
           <button type="submit" class="btn-primary">Send Enquiry</button>
           <p class="form-note">All enquiries are treated with strict confidentiality.</p>
         </form>
@@ -496,13 +496,20 @@
   </footer>
 
   <script>
-    // Sticky nav shadow
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
     });
-    // Mobile toggle
     document.getElementById('navToggle').addEventListener('click', () => {
       document.getElementById('navLinks').classList.toggle('open');
+    });
+    document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name    = document.getElementById('fname').value.trim();
+      const email   = document.getElementById('femail').value.trim();
+      const session = document.getElementById('fsession').value || 'Not specified';
+      const message = document.getElementById('fmessage').value.trim();
+      const body = `Name: ${name}\nEmail: ${email}\nSession type: ${session}\n\n${message}`;
+      window.location.href = `mailto:mistresssuzuran@proton.me?subject=Session Enquiry — ${name}&body=${encodeURIComponent(body)}`;
     });
   </script>
 
